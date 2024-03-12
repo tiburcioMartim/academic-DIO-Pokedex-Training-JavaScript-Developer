@@ -79,9 +79,10 @@
 }
 
 .pokemon {
+    min-width: 225px;
     display: flex;
     flex-direction: column;
-    margin: .5rem;
+    margin: .5rem auto;
     padding: 1rem;
     border-radius: 1rem;
 }
@@ -149,6 +150,10 @@
 @media screen and (min-width: 380px) {
     .pokemons {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .pokemon {
+        margin: .5rem;
     }
 }
 

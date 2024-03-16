@@ -1,7 +1,10 @@
 class Pokemon {
     numberPoke;
     name;
+    photo;
     type;
     types = [];
-    photo;
+    stat;
+    stats = [];
+    statsValue;
 }

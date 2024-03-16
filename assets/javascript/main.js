@@ -6,24 +6,36 @@ const limit = 12;
 let offset = 0;
 
 function loadPokemonItens(offset, limit) {
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHTML = pokemons.map((pokemon) => `
-        <li class="pokemon ${pokemon.type}">
-            <span class="number">${pokemon.numberPoke}</span>
-            <span class="namePokemon">${pokemon.name}</span>
-    
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
+    pokeApi.getPokemons(offset, limit)
+        .then((pokemons = []) => {
+
+            const newHTML = pokemons.map((pokemon) => {
+                const typesHTML = pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('');
+                const statsHTML = pokemon.stats.map((stat, i) => `<li class="stat">${stat}<br>${pokemon.statsValue[i]}</li>`).join('');
+
+                return `
+            <li class="pokemon ${pokemon.type}">
+                <span class="number">${pokemon.numberPoke}</span>
+                <span class="namePokemon">${pokemon.name}</span>
+        
+                <div class="detail">
+                    <ol class="types">
+                        ${typesHTML} 
+                    </ol>
+                    
+                    <img src="${pokemon.photo}" 
+                    alt="${pokemon.name}">
+                </div>
                 
-                <img src="${pokemon.photo}" 
-                alt="${pokemon.name}">
-            </div>
-        </li>
-        `).join('')
-        pokemonList.innerHTML += newHTML
-    })
+                <ol class="stats-value">
+                    ${statsHTML}
+                </ol>
+            </li>
+            `;
+            }).join('');
+
+            pokemonList.innerHTML += newHTML
+        });
 }
 
 loadPokemonItens(offset, limit)
